@@ -1,17 +1,22 @@
 
 public class EmpWageComputation {
-	
+
 	private static final int wagePerHour = 20;
 	private static final int fullTimeHour = 8;
 	private static final int partTimeHour = 4;
 	static int workingDaysOfMonth = 0;
 	static int totalHour = 0;
 	static int totalDailyWage = 0;
-	
+
 	public static void main(String[] args) {
 
 		System.out.println("***Welcome to Employee Wage Computation Program***\n");
 
+		wageComputation();
+
+	}
+
+	public static void wageComputation() {
 		while (totalHour < 80 && workingDaysOfMonth < 20) {
 			int check = (int) ((Math.random() * 10) % 3);
 
