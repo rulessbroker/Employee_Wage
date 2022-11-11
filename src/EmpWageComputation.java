@@ -1,13 +1,14 @@
 
 public class EmpWageComputation {
+	
+	private static final int wagePerHour = 20;
+	private static final int fullTimeHour = 8;
+	private static final int partTimeHour = 4;
+	static int workingDaysOfMonth = 0;
+	static int totalHour = 0;
+	static int totalDailyWage = 0;
+	
 	public static void main(String[] args) {
-
-		final int wagePerHour = 20;
-		final int fullTimeHour = 8;
-		final int partTimeHour = 4;
-		int workingDaysOfMonth = 0;
-		int totalHour = 0;
-		int totalDailyWage = 0;
 
 		System.out.println("***Welcome to Employee Wage Computation Program***\n");
 
