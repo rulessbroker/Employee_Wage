@@ -2,9 +2,9 @@
 public class EmpWageComputation {
 	public static void main(String[] args) {
 
-		int wagePerHour = 20;
-		int fullTimeHour = 8;
-		int partTimeHour = 4;
+		final int wagePerHour = 20;
+		final int fullTimeHour = 8;
+		final int partTimeHour = 4;
 		int workingDaysOfMonth = 0;
 		int totalHour = 0;
 		int totalDailyWage = 0;
