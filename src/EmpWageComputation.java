@@ -13,13 +13,16 @@ public class EmpWageComputation {
 		int dailyWage = wagePerHour * fullTimeHour;
 		int partTimeWage = wagePerHour * (fullTimeHour + partTimeHour);
 
-		if (check == 1) {
+		switch (check) {
+		case 1:
 			System.out.println("Employee is Present");
 			System.out.println("Daily wage of employee = " + dailyWage);
-		} else if (check == 2) {
+			break;
+		case 2:
 			System.out.println("Employee is Present on Part-Time");
 			System.out.println("Part-Time wage os Employee = " + partTimeWage);
-		} else {
+			break;
+		default:
 			System.out.println("Employee is Absent");
 		}
 	}
