@@ -1,79 +1,94 @@
 
+import java.util.ArrayList;
+
+import java.util.List;
+
 public class EmpWageBuilderObject {
+	public static final int IS_PART_TIME = 1;
+	public static final int IS_FULL_TIME = 2;
+	private int noOfCompany = 0;
+	private CompanyEmpWage[] companyEmpWageArray;
 
-	private static String company;
-	private static int wagePerHours;
-	private static int workingHours;
-	private static int workingDays;
-
-	EmpWageBuilderObject(String company, int workingHours, int workingDays, int wagePerHours) {
-		this.company = company;
-		this.workingHours = workingHours;
-		this.workingDays = workingDays;
-		this.wagePerHours = wagePerHours;
+	public EmpWageBuilderObject() {
+		companyEmpWageArray = new CompanyEmpWage[5];
 	}
 
-	public static void wageComputation() {
+	private void addCompanyEmpWage(String company, int empRatePerHour, int numOfWorkingDays, int maxHrsPerMonth) {
+		companyEmpWageArray[noOfCompany] = new CompanyEmpWage(company, empRatePerHour, numOfWorkingDays,
+				maxHrsPerMonth);
+		noOfCompany++;
+	}
 
-		int fullTimeHours = 8;
-		int partTimeHours = 4;
-		int presentDay = 0;
-		int absentDay = 0;
-		int partTimeDay = 0;
-		int workingDaysOfMonth = 0;
-		int totalHour = 0;
-		int totalDailyWage = 0;
+	private void computeEmpWage() {
+		for (int i = 0; i < noOfCompany; i++) {
+			companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
+		}
 
-		while (totalHour < workingHours && workingDaysOfMonth < workingDays) {
+	}
 
-			int check = (int) ((Math.random() * 10) % 3);
+	private int computeEmpWage(CompanyEmpWage companyEmpWage) {
 
-			workingDaysOfMonth++;
+		int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
 
-			switch (check) {
-			case 1:
-				totalHour = totalHour + fullTimeHours;
-				totalDailyWage = totalDailyWage + fullTimeHours * wagePerHours;
-				presentDay++;
+		while (totalEmpHrs <= companyEmpWage.maxHrsPerMonth && totalWorkingDays <= companyEmpWage.numOfWorkingDays) {
 
+			totalWorkingDays++;
+
+			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+			switch (empCheck) {
+			case IS_PART_TIME:
+				empHrs = 4;
 				break;
-			case 2:
-				totalHour = totalHour + partTimeHours;
-				totalDailyWage = totalDailyWage + partTimeHours * wagePerHours;
-				partTimeDay++;
+			case IS_FULL_TIME:
+				empHrs = 8;
 				break;
 			default:
-				absentDay++;
+				empHrs = 0;
+				break;
 			}
+			totalEmpHrs += empHrs;
+			System.out.println("Days " + totalWorkingDays + " Emp Hrs " + empHrs);
 
 		}
-		System.out.println("Employee Present Days: " + presentDay);
-		System.out.println("Employee PartTime Days: " + partTimeDay);
-		System.out.println("Employee Absent Days: " + absentDay);
-		System.out.println("In Company of " + company + " Employees Working Day is: " + workingDaysOfMonth + " Hours: "
-				+ totalHour);
-		System.out.println("Employee total wage for month is: " + totalDailyWage
-				+ "\n -----------------------------------------------------------------------------");
+		int TotalWage = totalEmpHrs * companyEmpWage.empRatePerHour;
 
-	}
+		System.out.println("Totalwage for  " + companyEmpWage.company + " is " + TotalWage);
 
-	@Override
-	public String toString() {
-		return "EmpWageComputation [company=" + company + ", wagePerHours=" + wagePerHours + ", workingHours="
-				+ workingHours + ", workingDays=" + workingDays + "]";
+		return (totalEmpHrs * companyEmpWage.empRatePerHour);
+
 	}
 
 	public static void main(String[] args) {
+		EmpWageBuilderObject empWageBuilder = new EmpWageBuilderObject();
+		empWageBuilder.addCompanyEmpWage("Ferrari", 80, 15, 100);
+		empWageBuilder.addCompanyEmpWage("Roll-Royals", 100, 20, 120);
+		empWageBuilder.computeEmpWage();
 
-		System.out.println("***Welcome to Employee Wage Computation Program***\n");
+	}
+}
 
-		EmpWageBuilderObject ferrari = new EmpWageBuilderObject("Ferrari", 100, 20, 20);
+class Company {
+	static short fullTimeHrs = 10;
+	static short partTimeHrs = 4;
+	String companyName = " ";
+	int wagePerHr;
+	int daysToWork;
+	int hrsToWork;
+	int monthlywage;
+	int totlaHrsWorked;
+	int totalDaysWorked;
 
-		EmpWageBuilderObject bugati = new EmpWageBuilderObject("Bugati", 80, 18, 25);
+	public Company(String companyName, int wagePerHr, int daysToWork, int hrsToWork) {
+		this.companyName = companyName;
+		this.wagePerHr = wagePerHr;
+		this.daysToWork = daysToWork;
+		this.hrsToWork = hrsToWork;
 
-		ferrari.wageComputation();
+	}
 
-		bugati.wageComputation();
+	public String toString() {
+		return "\n Employee worked in " + companyName + " has made " + monthlywage + " Rs by working " + totlaHrsWorked
+				+ " hours in " + totalDaysWorked + " days this month ";
 
 	}
 }
